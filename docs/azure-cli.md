@@ -1,6 +1,8 @@
 # azure cli
 メモ
 
+ここに書いてあることは vscode の拡張で解決できるかもしれない
+
 ## init azure
 
 ### function project
