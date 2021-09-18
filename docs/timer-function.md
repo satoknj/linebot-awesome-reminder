@@ -9,6 +9,24 @@
 [18:27:43] Found 0 errors. Watching for file changes.
 
 [2021-09-16T09:27:44.054Z] The listener for function 'Functions.AwesomeRemind' was unable to start.
-[2021-09-16T09:27:44.054Z] The listener for function 'Functions.AwesomeRemind' was unable to start. Microsoft.Azure.WebJobs.Script: Could not create BlobServiceClient to obtain the BlobContainerClient using Connection: Storage.
+[2021-09-16T09:27:44.054Z] The listener for function 'Functions.AwesomeRemind' was unable to start. Microsoft.Azure.WebJobs.Script:Could not create BlobServiceClient to obtain the BlobContainerClient using Connection: Storage.
 ```
 
+## azurite が必要らしい
+
+### 感謝
+[この記事](https://zenn.dev/ibaraki/articles/8bc72a15eb0d00)を元に解決
+
+### 最終的に
+local.settings.json に　設定すればよかった
+
+```json
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:10000/devstoreaccount1;"
+  }
+}
+```
+
+https://docs.microsoft.com/ja-jp/azure/storage/common/storage-use-azurite?tabs=visual-studio#http-connection-strings

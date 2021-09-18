@@ -5,4 +5,4 @@ reminde everything with linebot
 curl で linebot を動かす実験中
 
 ## memo
-- node は 12 らしい＠2021-09-16
+- `docker-compose -f ./docker/docker-compose.yml -p awssome-reminder up -d `
