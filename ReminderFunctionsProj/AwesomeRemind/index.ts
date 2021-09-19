@@ -1,14 +1,9 @@
 import { AzureFunction, Context } from "@azure/functions"
+import { botFunction } from "./function"
 
 const timerTrigger: AzureFunction = async function (context: Context, myTimer: any): Promise<void> {
-    var timeStamp = new Date().toISOString();
-    
-    if (myTimer.IsPastDue)
-    {
-        context.log('Timer function is running late!');
-    }
-    context.log('Timer trigger function ran!', timeStamp);   
-    context.log('Congraturation! I did on local!');   
+    const ts = context.bindingData.timerTrigger;
+    botFunction(ts)
 };
 
 export default timerTrigger;
