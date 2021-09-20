@@ -4,8 +4,8 @@
       "name": "myTimer",
       "type": "timerTrigger",
       "direction": "in",
-      "schedule": "0 0,15,30,45 6,18 * * *",
-      "runOnStartup": true
+      "schedule": "0 45 6 * * *",
+      "runOnStartup": false
     }
   ],
   "scriptFile": "../dist/AwesomeRemind/index.js"

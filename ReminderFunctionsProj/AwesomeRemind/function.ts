@@ -1,10 +1,10 @@
 import { send } from "./linebot";
 
 export class RemindMessage {
-    readonly message: String;
-    readonly replyChoices: String[];
-    readonly daysOfWeek: Number[];
-    readonly timing: String
+    readonly message: string;
+    readonly replyChoices: string[];
+    readonly daysOfWeek: number[];
+    readonly timing: string
     
     constructor() {
         this.message = "朝の薬飲んだ？";
