@@ -7,11 +7,11 @@ export function send(remindMessage: RemindMessage) {
     console.log(remindMessage.daysOfWeek);
     console.log(remindMessage.timing);
     
-    const bot = new LinebotGateway();
+    const bot = new LinebotGatewayImpl();
     bot.send();
 }
 
-export class LinebotGateway {
+export class LinebotGatewayImpl {
     private readonly client: Client;
     private readonly userId: string;
     
