@@ -20,6 +20,7 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "@line/bot-sdk": "^7.4.0"
+    "@line/bot-sdk": "^7.4.0",
+    "dayjs": "^1.10.7"
   }
 }

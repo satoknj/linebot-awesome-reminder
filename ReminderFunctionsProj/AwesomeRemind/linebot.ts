@@ -5,7 +5,8 @@ export function send(remindMessage: RemindMessage) {
     console.log(remindMessage.message);
     console.log(remindMessage.replyChoices);
     console.log(remindMessage.daysOfWeek);
-    console.log(remindMessage.timing);
+    console.log(remindMessage.hour);
+    console.log(remindMessage.minute);
     
     const bot = new LinebotGatewayImpl();
     bot.send();

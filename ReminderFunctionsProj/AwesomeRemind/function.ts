@@ -1,16 +1,20 @@
 import { send } from "./linebot";
+import * as dayjs from 'dayjs';
+import timerTrigger from ".";
 
 export class RemindMessage {
     readonly message: string;
     readonly replyChoices: string[];
     readonly daysOfWeek: number[];
-    readonly timing: string
+    readonly hour: number;
+    readonly minute: number;
     
     constructor() {
         this.message = "朝の薬飲んだ？";
         this.replyChoices = ["Done", "Later"];
         this.daysOfWeek = [2, 3, 4, 5, 7];
-        this.timing = "06:45";
+        this.hour = 6;
+        this.minute = 45;
     }
 }
 
@@ -25,10 +29,13 @@ export class Reminder {
         this.linebotGateway = linebotGateway;
     }
     
-    remind(timpeStamp: Date) {
+    remind(timpeStamp: dayjs.Dayjs) {
         const remindMessage = new RemindMessage();
-        this.linebotGateway.send(remindMessage);
-        console.log('from exported func!' + timpeStamp.toString());
+        
+        if (timpeStamp.hour() === remindMessage.hour && timpeStamp.minute() === remindMessage.minute) {
+            this.linebotGateway.send(remindMessage);
+            console.log('from exported func!' + timpeStamp.toString());
+        }
     }
 }
 
