@@ -1,12 +1,12 @@
-import { RemindMessage } from "./function";
+import { RemindMessage } from "./domain";
 import { Client, ClientConfig } from "@line/bot-sdk";
 
 export function send(remindMessage: RemindMessage) {
     console.log(remindMessage.message);
     console.log(remindMessage.replyChoices);
-    console.log(remindMessage.daysOfWeek);
-    console.log(remindMessage.hour);
-    console.log(remindMessage.minute);
+    console.log(remindMessage.remindTiming.daysOfWeek);
+    console.log(remindMessage.remindTiming.hour);
+    console.log(remindMessage.remindTiming.minute);
     
     const bot = new LinebotGatewayImpl();
     bot.send();
