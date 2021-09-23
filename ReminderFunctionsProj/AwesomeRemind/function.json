@@ -5,7 +5,7 @@
       "type": "timerTrigger",
       "direction": "in",
       "schedule": "0 45 6 * * *",
-      "runOnStartup": true
+      "runOnStartup": false
     }
   ],
   "scriptFile": "../dist/AwesomeRemind/index.js"

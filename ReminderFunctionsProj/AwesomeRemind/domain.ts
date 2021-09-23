@@ -1,6 +1,6 @@
 import dayjs = require("dayjs");
 
-class RemindTiming {
+export class RemindTiming {
     readonly daysOfWeek: number[];
     readonly hour: number;
     readonly minute: number;

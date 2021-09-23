@@ -1,17 +1,6 @@
 import { RemindMessage } from "./domain";
 import { Client, ClientConfig } from "@line/bot-sdk";
 
-export function send(remindMessage: RemindMessage) {
-    console.log(remindMessage.message);
-    console.log(remindMessage.replyChoices);
-    console.log(remindMessage.remindTiming.daysOfWeek);
-    console.log(remindMessage.remindTiming.hour);
-    console.log(remindMessage.remindTiming.minute);
-    
-    const bot = new LinebotGatewayImpl();
-    bot.send();
-}
-
 export class LinebotGatewayImpl {
     private readonly client: Client;
     private readonly userId: string;
@@ -25,10 +14,10 @@ export class LinebotGatewayImpl {
         this.userId = process.env.LinebotUserId;
     }
     
-    send() {
+    send(remindMessage: RemindMessage) {
         this.client.pushMessage(this.userId, {
             type: 'text',
-            text: '朝のお薬飲んだ？'
+            text: remindMessage.message
         });
     }
 }
