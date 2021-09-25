@@ -17,6 +17,7 @@ test('confirm send message', () => {
     const reminder = new Reminder(linebot);
     
     const now = dayjs('2021-09-23T21:45:23.000Z'); // azure では　UTC で実行されるため、それをテスト
+    console.log(now);
     reminder.remind(now)
     expect(linebot.send).toHaveBeenCalledTimes(1);
 });
