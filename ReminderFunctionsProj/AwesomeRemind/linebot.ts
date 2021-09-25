@@ -1,5 +1,5 @@
 import { RemindMessage } from "./domain";
-import { Client, ClientConfig } from "@line/bot-sdk";
+import { Client, ClientConfig, TemplateMessage, Action } from "@line/bot-sdk";
 
 export class LinebotGatewayImpl {
     private readonly client: Client;
@@ -15,9 +15,23 @@ export class LinebotGatewayImpl {
     }
     
     send(remindMessage: RemindMessage) {
-        this.client.pushMessage(this.userId, {
-            type: 'text',
-            text: remindMessage.message
+        const actions: Action[] = remindMessage.replyChoices.map((value) => {
+            return {
+                type: 'postback',
+                label: value,
+                data: `action=${value}`
+            };
         });
+        const message: TemplateMessage = {
+            type: 'template',
+            altText: 'hoge',
+            template: {
+                type: 'buttons',
+                title: 'リマインド',
+                text: remindMessage.message,
+                actions: actions
+            }
+        };
+        this.client.pushMessage(this.userId, message);
     }
 }

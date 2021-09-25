@@ -24,7 +24,7 @@ export class RemindMessage {
     
     constructor() {
         this.message = "朝の薬飲んだ？";
-        this.replyChoices = ["Done", "Later"];
+        this.replyChoices = ["done", "later"];
         this.remindTiming = new RemindTiming(
             [2, 3, 4, 5, 7],
             6,
