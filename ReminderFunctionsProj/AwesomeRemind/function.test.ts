@@ -1,5 +1,9 @@
 import { Reminder } from "./function";
 import * as dayjs from 'dayjs';
+import * as timezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(timezone);
+dayjs.tz.setDefault('GMT');
 
 const linebot = {
     send: jest.fn((message) => undefined)
