@@ -1,0 +1,34 @@
+{
+	"Jest describe": {
+		"scope": "typescript",
+		"prefix": "jest-describe",
+		"body": [
+			"describe('$1', () => {",
+			"    $2",
+			"});"
+		],
+		"description": "Jest describe"
+	},
+	"Jest describe.each": {
+		"scope": "typescript",
+		"prefix": "jest-describe-each",
+		"body": [
+			"describe.each([",
+			"    $2",
+			"])('$1', ($3) => {",
+			"    $4",
+			"});"
+		],
+		"description": "Jest describe with table driven"
+	},
+	"Jest test": {
+		"scope": "typescript",
+		"prefix": "jest-test",
+		"body": [
+			"test('$1', () => {",
+			"    $2",
+			"});"
+		],
+		"description": "Jest test"
+	}
+}
