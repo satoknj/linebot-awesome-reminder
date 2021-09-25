@@ -1,9 +1,5 @@
 import { RemindTiming } from "./domain";
 import dayjs = require("dayjs");
-import * as timezone from 'dayjs/plugin/timezone'
-
-dayjs.extend(timezone);
-dayjs.tz.setDefault('Asia/Tokyo');
 
 describe('remindTiming', () => {;
     const baseDatetime = dayjs('2021-09-22 06:45:00.000');
