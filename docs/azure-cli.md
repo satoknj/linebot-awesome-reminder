@@ -9,7 +9,20 @@
 `func init ReminderFunctionsProj --typescript`
 
 ### function
-`func new --name AwesomeRemind --template "Timer trigger"`
+search template
+```bash
+func templates list
+```
+
+http 
+```bash
+func new --name RemindReplyReceiver --template "HTTP trigger"
+```
+
+timer 
+```bash
+func new --name AwesomeRemind --template "Timer trigger"
+```
 
 ## azure への関数登録例
 
