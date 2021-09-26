@@ -7,7 +7,7 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     context.log(req.body);
 
     const channelSecret = process.env.LinebotChannelSecret;
-    const body = req.body;
+    const body = req.rawBody;
     const signature = crypto
       .createHmac('SHA256', channelSecret)
       .update(body).digest('base64');
