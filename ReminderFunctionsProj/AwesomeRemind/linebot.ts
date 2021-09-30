@@ -19,6 +19,7 @@ export class LinebotGatewayImpl {
             return {
                 type: 'postback',
                 label: value,
+                displayText: value,
                 data: `action=${value}`
             };
         });
