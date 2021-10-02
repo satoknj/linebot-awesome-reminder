@@ -1,10 +1,12 @@
-import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import * as crypto from 'crypto'
+import { AzureFunction, Context, HttpRequest } from "@azure/functions";
+import * as crypto from 'crypto';
+import * as db from '../RemindDb';
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
     context.log('HTTP trigger function processed a request.');
     context.log(req);
     context.log(req.body);
+    db.imDb();
 
     const channelSecret = process.env.LinebotChannelSecret;
     const body = req.rawBody;
