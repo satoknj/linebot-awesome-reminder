@@ -32,3 +32,25 @@ export class RemindMessage {
         );
     }
 }
+
+export const Kind = { BreakfirstMedicine: 'breakfirstMedicine', FillBath: 'fillBath' } as const;
+export type Kind = typeof Kind[keyof typeof Kind];
+
+export class SentMessage {
+    readonly kind: Kind;
+    readonly message: string;
+    readonly datetime: dayjs.Dayjs;
+    readonly snoozes: dayjs.Dayjs[];
+    readonly reply: string;
+
+    constructor(kind: Kind, message: string, datetime: dayjs.Dayjs) {
+        this.kind = kind;
+        this.message = message;
+        this.datetime = datetime;
+        this.snoozes = [];
+        this.reply = '';
+    }
+}
+export interface SentMessageRepository {
+    save(SentMessage: SentMessage): void;
+}

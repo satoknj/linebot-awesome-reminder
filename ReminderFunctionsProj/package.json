@@ -20,6 +20,7 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
+    "@azure/cosmos": "^3.14.1",
     "@line/bot-sdk": "^7.4.0",
     "@types/crypto-js": "^4.0.2",
     "crypto-js": "^4.1.1",
