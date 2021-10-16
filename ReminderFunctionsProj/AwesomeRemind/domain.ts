@@ -43,14 +43,14 @@ export class SentMessage {
     readonly snoozes: dayjs.Dayjs[];
     readonly reply: string;
 
-    constructor(kind: Kind, message: string, datetime: dayjs.Dayjs) {
+    constructor(kind: Kind, message: RemindMessage, datetime: dayjs.Dayjs) {
         this.kind = kind;
-        this.message = message;
-        this.datetime = datetime;
+        this.message = message.message;
+        this.datetime = datetime.second(0).millisecond(0);
         this.snoozes = [];
         this.reply = '';
     }
 }
 export interface SentMessageRepository {
-    save(SentMessage: SentMessage): void;
+    save(sentMessage: SentMessage): void;
 }

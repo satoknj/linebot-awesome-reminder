@@ -9,7 +9,7 @@ export function imDb() {
 const CONTAINER_ID = 'Sents';
 
 export class SentMessageRepositoryImpl implements SentMessageRepository {
-    async save() {
+    async save(sentMessage: SentMessage) {
         const client = new cosmos.CosmosClient({
             endpoint: process.env.CosmosDbEndpoint,
             key: process.env.CosmosDbKey
@@ -18,11 +18,6 @@ export class SentMessageRepositoryImpl implements SentMessageRepository {
         const database = client.database(process.env.CosmosDbDatabaseId);
         const container = database.container(CONTAINER_ID);
         
-        const newItem = new SentMessage(
-            Kind.BreakfirstMedicine,
-            'hoge',
-            dayjs()
-        );
-        await container.items.create(newItem);
+        await container.items.create(sentMessage);
     }
 }

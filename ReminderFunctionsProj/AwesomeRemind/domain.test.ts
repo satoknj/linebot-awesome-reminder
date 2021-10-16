@@ -1,4 +1,4 @@
-import { RemindTiming } from "./domain";
+import { Kind, RemindMessage, RemindTiming, SentMessage } from "./domain";
 import dayjs = require("dayjs");
 
 describe('remindTiming', () => {;
@@ -26,5 +26,18 @@ describe('remindTiming', () => {;
             const now = baseDatetime.set('minute', minute);
             expect(sut.isRemindTiming(now)).toBe(expected);
         });
+    });
+});
+
+describe('SentMessage', () => {
+    test('constructor', () => {
+        const remindMessage = new RemindMessage();
+        const sut = new SentMessage(Kind.BreakfirstMedicine, remindMessage, dayjs('2021-10-12 07:00:05.222'));
+
+        expect(sut.kind).toBe(Kind.BreakfirstMedicine);
+        expect(sut.message).toBe('朝の薬飲んだ？');
+        expect(sut.datetime).toEqual(dayjs('2021-10-12 07:00:00.000'));
+        expect(sut.snoozes).toEqual([]);
+        expect(sut.reply).toEqual('');
     });
 });
