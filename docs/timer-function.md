@@ -46,3 +46,10 @@ local.settings.json に　設定すればよかった
 ```
 
 https://docs.microsoft.com/ja-jp/azure/storage/common/storage-use-azurite?tabs=visual-studio#http-connection-strings
+
+### ローカルで即時起動
+`npm start`で起動してから`curl`で起動できる
+
+```bash
+curl --request POST -H "Content-Type:application/json" --data '{"input":"sample queue data"}' http://localhost:7071/admin/functions/AwesomeRemind
+```
