@@ -1,6 +1,7 @@
 module.exports = {
     "roots": [
-      "<rootDir>/AwesomeRemind"
+      "<rootDir>/AwesomeRemind",
+      "<rootDir>/RemindDb"
     ],
     "testMatch": [
       "**/__tests__/**/*.+(ts|tsx|js)",
