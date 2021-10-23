@@ -25,16 +25,28 @@ class SentMessageContainer {
     }
 }
 
-export class SentMessageRepositoryImpl implements SentMessageRepository {
+abstract class CosmosDbRepository {
+    protected readonly container: cosmos.Container;
+    
+    constructor(aContainer?: cosmos.Container) {
+        if (aContainer === null) {
+            const client = new cosmos.CosmosClient({
+                endpoint: process.env.CosmosDbEndpoint,
+                key: process.env.CosmosDbKey
+            });
+            
+            const database = client.database(process.env.CosmosDbDatabaseId);
+            this.container = database.container(CONTAINER_ID);
+        } else {
+            this.container = aContainer;
+        }
+    }
+}
+
+export class SentMessageRepositoryImpl extends CosmosDbRepository implements SentMessageRepository {
     async save(sentMessage: SentMessage) {
-        const client = new cosmos.CosmosClient({
-            endpoint: process.env.CosmosDbEndpoint,
-            key: process.env.CosmosDbKey
-        });
-        
-        const database = client.database(process.env.CosmosDbDatabaseId);
-        const container = database.container(CONTAINER_ID);
-        
-        await container.items.create(new SentMessageContainer(sentMessage));
+        await this.container
+            .items
+            .create(new SentMessageContainer(sentMessage));
     }
 }

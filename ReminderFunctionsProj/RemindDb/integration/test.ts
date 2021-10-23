@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import  * as cosmos from '@azure/cosmos';
-import { Kind } from '../../AwesomeRemind/domain';
+import { Kind, RemindMessage, SentMessage } from '../../AwesomeRemind/domain';
 import dayjs = require('dayjs');
+import { SentMessageRepositoryImpl } from '..';
 
 function getContainer(): cosmos.Container {
     const data = fs.readFileSync('./local.settings.json', 'utf8');
@@ -22,16 +23,13 @@ function getContainer(): cosmos.Container {
 }
 
 const container = getContainer();
+const sentMessageRepository = new SentMessageRepositoryImpl(container);
 
-const DATETIME_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ[Z]';
 async function insert() {
-    const item = {
-        id: dayjs('2021-10-22 06:22:05.234').format(DATETIME_FORMAT),
-        kind: Kind.BreakfirstMedicine,
-        message: 'test',
-        reply: ''
-    };
-    await container.items.create(item);
+    const item = new SentMessage(
+        Kind.BreakfirstMedicine, new RemindMessage(), dayjs('2021-10-22 06:22:05.234')
+    )
+    await sentMessageRepository.save(item);
 }
 
 async function query(): Promise<any> {
