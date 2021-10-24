@@ -1,5 +1,6 @@
 import { Kind, RemindMessage, SentMessage, SentMessageRepository } from "./domain";
 import * as dayjs from 'dayjs';
+import timerTrigger from ".";
 
 export interface LinebotGateway {
     send(remindMessage: RemindMessage): void;
@@ -14,13 +15,13 @@ export class Reminder {
         this.sentMessageRepository = sentMessageRepository;
     }
     
-    remind(timpeStamp: dayjs.Dayjs) {
+    remind(timestamp: dayjs.Dayjs) {
         const remindMessage = new RemindMessage();
         
-        if (remindMessage.remindTiming.isRemindTiming(timpeStamp)) {
+        if (remindMessage.remindTiming.isRemindTiming(timestamp)) {
             this.linebotGateway.send(remindMessage);
-            this.sentMessageRepository.save(
-                new SentMessage(Kind.BreakfirstMedicine, remindMessage, timpeStamp)
+            this.sentMessageRepository.create(
+                remindMessage.toSentMessage(Kind.BreakfirstMedicine, timestamp)
             );
         }
     }

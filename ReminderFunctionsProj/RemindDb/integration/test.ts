@@ -1,8 +1,11 @@
 import * as fs from 'fs';
 import  * as cosmos from '@azure/cosmos';
-import { Kind, RemindMessage, SentMessage } from '../../AwesomeRemind/domain';
+import { Kind, SentMessage } from '../../AwesomeRemind/domain';
 import dayjs = require('dayjs');
 import { SentMessageRepositoryImpl } from '..';
+
+import * as cpf from 'dayjs/plugin/customParseFormat';
+dayjs.extend(cpf)
 
 function getContainer(): cosmos.Container {
     const data = fs.readFileSync('./local.settings.json', 'utf8');
@@ -27,39 +30,26 @@ const sentMessageRepository = new SentMessageRepositoryImpl(container);
 
 async function insert() {
     const item = new SentMessage(
-        Kind.BreakfirstMedicine, new RemindMessage(), dayjs('2021-10-22 06:22:05.234')
+        Kind.BreakfirstMedicine, 'test', dayjs('2021-10-22 06:22:05.234'), [], ''
     )
-    await sentMessageRepository.save(item);
+    await sentMessageRepository.create(item);
 }
 
-async function query(): Promise<any> {
-    const q = 'SELECT * from c WHERE c.id = "2021-10-22T06:22:05+09:00Z" AND c.kind = "breakfirstMedicine"';
-    const ite = await container.items.query(q).fetchAll();
-    return ite.resources.map(item => {
-        return item;
-    })[0];
-}
-
-async function update(message: any) {
-    const updatedItem = {
-        id: message.id,
-        kind: message.kind,
-        message: message.message,
-        reply: 'done'
-    }
-    await container
-        .item(updatedItem.id, updatedItem.kind)
-        .replace(updatedItem);
+async function update(message: SentMessage) {
+    await sentMessageRepository.updateReply(message, 'done');
 }
 
 async function main() {
     await insert();
-    const message = await query();
+
+    const message = await sentMessageRepository.find('2021-10-22T06:22:00+09:00Z', Kind.BreakfirstMedicine);
     console.log(message);
+
     update(message);
-    const updateMessage = await query();
+
+    const updateMessage = await sentMessageRepository.find('2021-10-22T06:22:00+09:00Z', Kind.BreakfirstMedicine);
     console.log(updateMessage);
     
-    await container.item(updateMessage.id, updateMessage.kind).delete();
+    await container.item(updateMessage.datetime.format('YYYY-MM-DDTHH:mm:ssZ[Z]'), updateMessage.kind).delete();
 }
 main();

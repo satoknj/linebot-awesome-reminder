@@ -31,9 +31,19 @@ export class RemindMessage {
             45
         );
     }
+    
+    toSentMessage(kind: Kind, datetime: dayjs.Dayjs): SentMessage {
+        return new SentMessage(
+            kind,
+            this.message,
+            datetime,
+            [],
+            ''
+        )
+    }
 }
 
-export const Kind = { BreakfirstMedicine: 'breakfirstMedicine', FillBath: 'fillBath' } as const;
+export const Kind = { BreakfirstMedicine: 'BreakfirstMedicine', FillBath: 'FillBath' } as const;
 export type Kind = typeof Kind[keyof typeof Kind];
 
 export class SentMessage {
@@ -43,14 +53,16 @@ export class SentMessage {
     readonly snoozes: dayjs.Dayjs[];
     readonly reply: string;
 
-    constructor(kind: Kind, message: RemindMessage, datetime: dayjs.Dayjs) {
+    constructor(kind: Kind, message: string, datetime: dayjs.Dayjs, snoozes: dayjs.Dayjs[], reply: string) {
         this.kind = kind;
-        this.message = message.message;
+        this.message = message;
         this.datetime = datetime.second(0).millisecond(0);
-        this.snoozes = [];
-        this.reply = '';
+        this.snoozes = snoozes;
+        this.reply = reply;
     }
 }
 export interface SentMessageRepository {
-    save(sentMessage: SentMessage): void;
+    find(id: string, kind: Kind): Promise<SentMessage>;
+    create(sentMessage: SentMessage): void;
+    updateReply(sentMessage: SentMessage, reply: string): void;
 }

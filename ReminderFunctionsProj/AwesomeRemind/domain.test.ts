@@ -32,7 +32,7 @@ describe('remindTiming', () => {;
 describe('SentMessage', () => {
     test('constructor', () => {
         const remindMessage = new RemindMessage();
-        const sut = new SentMessage(Kind.BreakfirstMedicine, remindMessage, dayjs('2021-10-12 07:00:05.222'));
+        const sut = remindMessage.toSentMessage(Kind.BreakfirstMedicine, dayjs('2021-10-12 07:00:05.222'));
 
         expect(sut.kind).toBe(Kind.BreakfirstMedicine);
         expect(sut.message).toBe('朝の薬飲んだ？');

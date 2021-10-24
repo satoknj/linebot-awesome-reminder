@@ -5,12 +5,14 @@ const linebot = {
     send: jest.fn((message) => undefined)
 };
 const sentMessageRepository = {
-    save: jest.fn((sentMessage) => undefined)
+    find: jest.fn((sentMessage) => undefined),
+    create: jest.fn((sentMessage) => undefined),
+    updateReply: jest.fn((sentMessage) => undefined)
 }
 
 beforeEach(() => {
     linebot.send.mockClear();
-    sentMessageRepository.save.mockClear();
+    sentMessageRepository.create.mockClear();
 });
 
 test('confirm send message', () => {
@@ -19,7 +21,7 @@ test('confirm send message', () => {
     const now = dayjs('2021-09-23 06:45:23.000');
     reminder.remind(now)
     expect(linebot.send).toHaveBeenCalledTimes(1);
-    expect(sentMessageRepository.save).toHaveBeenCalledTimes(1);
+    expect(sentMessageRepository.create).toHaveBeenCalledTimes(1);
 });
 
 test('confirm not send message', () => {
@@ -28,5 +30,5 @@ test('confirm not send message', () => {
     const now = dayjs('2021-09-23 07:45:23.000');
     reminder.remind(now)
     expect(linebot.send).toHaveBeenCalledTimes(0);
-    expect(sentMessageRepository.save).toHaveBeenCalledTimes(0);
+    expect(sentMessageRepository.create).toHaveBeenCalledTimes(0);
 });
