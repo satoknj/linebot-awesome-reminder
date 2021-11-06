@@ -17,12 +17,16 @@ export class RemindTiming {
     }
 }
 
+export const Kind = { BreakfirstMedicine: 'BreakfirstMedicine', FillBath: 'FillBath' } as const;
+export type Kind = typeof Kind[keyof typeof Kind];
 export class RemindMessage {
+    readonly kind: Kind;
     readonly message: string;
     readonly replyChoices: string[];
     readonly remindTiming: RemindTiming;
     
     constructor() {
+        this.kind = Kind.BreakfirstMedicine;
         this.message = "朝の薬飲んだ？";
         this.replyChoices = ["done", "later"];
         this.remindTiming = new RemindTiming(
@@ -42,9 +46,6 @@ export class RemindMessage {
         )
     }
 }
-
-export const Kind = { BreakfirstMedicine: 'BreakfirstMedicine', FillBath: 'FillBath' } as const;
-export type Kind = typeof Kind[keyof typeof Kind];
 
 export class SentMessage {
     readonly kind: Kind;

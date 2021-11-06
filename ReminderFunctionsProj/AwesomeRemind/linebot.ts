@@ -1,5 +1,6 @@
 import { RemindMessage } from "./domain";
 import { Client, ClientConfig, TemplateMessage, Action } from "@line/bot-sdk";
+import dayjs = require("dayjs");
 
 export class LinebotGatewayImpl {
     private readonly client: Client;
@@ -14,13 +15,13 @@ export class LinebotGatewayImpl {
         this.userId = process.env.LinebotUserId;
     }
     
-    send(remindMessage: RemindMessage) {
+    send(remindMessage: RemindMessage, timestamp: dayjs.Dayjs) {
         const actions: Action[] = remindMessage.replyChoices.map((value) => {
             return {
                 type: 'postback',
                 label: value,
                 displayText: value,
-                data: `action=${value}`
+                data: `action=${value}&timestamp=${timestamp}&kind=${remindMessage.kind}`
             };
         });
         const message: TemplateMessage = {
