@@ -1,4 +1,4 @@
-import { Kind, RemindMessage, RemindTiming, SentMessage } from "./domain";
+import { Kind, RemindMessage, RemindTiming, RemindedAt } from "./domain";
 import dayjs = require("dayjs");
 
 describe('remindTiming', () => {;
@@ -39,5 +39,23 @@ describe('SentMessage', () => {
         expect(sut.datetime).toEqual(dayjs('2021-10-12 07:00:00.000'));
         expect(sut.snoozes).toEqual([]);
         expect(sut.reply).toEqual('');
+    });
+});
+
+describe('RemindedAt', () => {
+    test('format', () => {
+        const sut = new RemindedAt(dayjs('2021-11-06 06:45:00.000'));
+
+        expect(sut.format()).toBe('2021-11-06T06:45:00+09:00Z');
+    });
+
+    test('create', () => {
+        const source ='2021-11-06T06:45:00+09:00Z';
+        const actual = RemindedAt.create(source);
+
+        const expected = new RemindedAt(dayjs('2021-11-06 06:45:00'));
+        const diff = actual.value.diff(expected.value);
+        
+        expect(diff).toBe(0);
     });
 });

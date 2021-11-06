@@ -1,5 +1,26 @@
 import dayjs = require("dayjs");
+import * as customParseFormat from 'dayjs/plugin/customParseFormat';
 
+dayjs.extend(customParseFormat)
+
+export class RemindedAt {
+    readonly value: dayjs.Dayjs;
+    private static readonly DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ[Z]';
+
+    constructor(value: dayjs.Dayjs) {
+        this.value = value;
+    }
+    
+    format(): string {
+        return this.value.format(RemindedAt.DATE_FORMAT);
+    }
+    
+    static create(source: string): RemindedAt {
+        const value = dayjs(source, RemindedAt.DATE_FORMAT);
+        return new RemindedAt(value);
+    }
+    
+}
 export class RemindTiming {
     readonly daysOfWeek: number[];
     readonly hour: number;
