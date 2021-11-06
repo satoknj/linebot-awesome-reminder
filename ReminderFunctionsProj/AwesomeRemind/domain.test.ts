@@ -36,7 +36,7 @@ describe('SentMessage', () => {
 
         expect(sut.kind).toBe(Kind.BreakfirstMedicine);
         expect(sut.message).toBe('朝の薬飲んだ？');
-        expect(sut.datetime).toEqual(dayjs('2021-10-12 07:00:00.000'));
+        expect(sut.remindedAt.value).toEqual(dayjs('2021-10-12 07:00:00.000'));
         expect(sut.snoozes).toEqual([]);
         expect(sut.reply).toEqual('');
     });

@@ -71,16 +71,22 @@ export class RemindMessage {
 export class SentMessage {
     readonly kind: Kind;
     readonly message: string;
-    readonly datetime: dayjs.Dayjs;
+    readonly remindedAt: RemindedAt;
     readonly snoozes: dayjs.Dayjs[];
     readonly reply: string;
 
-    constructor(kind: Kind, message: string, datetime: dayjs.Dayjs, snoozes: dayjs.Dayjs[], reply: string) {
+    constructor(kind: Kind, message: string, datetime: dayjs.Dayjs | RemindedAt, snoozes: dayjs.Dayjs[], reply: string) {
         this.kind = kind;
         this.message = message;
-        this.datetime = datetime.second(0).millisecond(0);
         this.snoozes = snoozes;
         this.reply = reply;
+        
+        if (datetime instanceof RemindedAt) {
+            this.remindedAt = datetime;
+        } else {
+            // TODO 秒以下を扱わないこともValue Object で吸収する
+            this.remindedAt = new RemindedAt(datetime.second(0).millisecond(0));
+        }
     }
 }
 export interface SentMessageRepository {

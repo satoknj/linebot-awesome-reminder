@@ -50,6 +50,6 @@ async function main() {
     const updateMessage = await sentMessageRepository.find('2021-10-22T06:22:00+09:00Z', Kind.BreakfirstMedicine);
     console.log(updateMessage);
     
-    await container.item(updateMessage.datetime.format('YYYY-MM-DDTHH:mm:ssZ[Z]'), updateMessage.kind).delete();
+    await container.item(updateMessage.remindedAt.format(), updateMessage.kind).delete();
 }
 main();

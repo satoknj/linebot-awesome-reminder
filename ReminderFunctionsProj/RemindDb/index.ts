@@ -1,6 +1,5 @@
-import { SentMessage, SentMessageRepository, Kind } from '../AwesomeRemind/domain';
+import { SentMessage, SentMessageRepository, Kind, RemindedAt } from '../AwesomeRemind/domain';
 import * as dayjs from 'dayjs';
-import * as customParseFormat from 'dayjs/plugin/customParseFormat';
 import  * as cosmos from '@azure/cosmos';
 
 export function imDb() {
@@ -8,9 +7,6 @@ export function imDb() {
 }
 
 const CONTAINER_ID = 'Sents';
-
-dayjs.extend(customParseFormat)
-const DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ[Z]';
 
 class SentMessageContainer {
     readonly id: string;
@@ -20,7 +16,7 @@ class SentMessageContainer {
     reply: string;
 
     constructor(sentMessage: SentMessage) {
-        this.id = sentMessage.datetime.format(DATE_FORMAT);
+        this.id = sentMessage.remindedAt.format();
         this.kind = sentMessage.kind.toString();
         this.message = sentMessage.message;
         this.snoozes = [];
@@ -56,7 +52,7 @@ export class SentMessageRepositoryImpl extends CosmosDbRepository implements Sen
         return new SentMessage(
             Kind[saved.kind],
             saved.message,
-            dayjs(saved.id, DATE_FORMAT),
+            RemindedAt.create(saved.id),
             saved.snoozes.map(snooze => dayjs(snooze)),
             saved.reply
         );
