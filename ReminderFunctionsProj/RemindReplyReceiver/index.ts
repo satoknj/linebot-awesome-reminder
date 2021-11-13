@@ -3,9 +3,11 @@ import * as crypto from 'crypto';
 import * as db from '../RemindDb';
 
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
-    context.log('HTTP trigger function processed a request.');
     context.log(req);
-    context.log(req.body);
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    console.log(req.body);
+    console.log(typeof req.body.data);
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
     db.imDb();
 
     const channelSecret = process.env.LinebotChannelSecret;
