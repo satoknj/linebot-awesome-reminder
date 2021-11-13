@@ -1,4 +1,4 @@
-import { Kind, RemindMessage, RemindTiming, RemindedAt } from "./domain";
+import { Kind, RemindMessage, RemindTiming, RemindedAt } from ".";
 import dayjs = require("dayjs");
 
 describe('remindTiming', () => {;

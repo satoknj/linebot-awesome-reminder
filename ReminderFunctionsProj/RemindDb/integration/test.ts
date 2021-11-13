@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import  * as cosmos from '@azure/cosmos';
-import { Kind, SentMessage } from '../../AwesomeRemind/domain';
+import { Kind, SentMessage } from '../../RemindDomain';
 import dayjs = require('dayjs');
 import { SentMessageRepositoryImpl } from '..';
 

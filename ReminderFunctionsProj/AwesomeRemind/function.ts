@@ -1,4 +1,4 @@
-import { Kind, RemindedAt, RemindMessage, SentMessageRepository } from "./domain";
+import { Kind, RemindedAt, RemindMessage, SentMessageRepository } from "../RemindDomain";
 import * as dayjs from 'dayjs';
 
 export interface LinebotGateway {

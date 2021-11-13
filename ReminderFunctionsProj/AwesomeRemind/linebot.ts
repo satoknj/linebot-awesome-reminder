@@ -1,4 +1,4 @@
-import { RemindedAt, RemindMessage } from "./domain";
+import { RemindedAt, RemindMessage } from "../RemindDomain";
 import { Client, ClientConfig, TemplateMessage, Action } from "@line/bot-sdk";
 
 export class LinebotGatewayImpl {

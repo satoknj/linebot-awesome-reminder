@@ -1,4 +1,4 @@
-import { SentMessage, SentMessageRepository, Kind, RemindedAt } from '../AwesomeRemind/domain';
+import { SentMessage, SentMessageRepository, Kind, RemindedAt } from '../RemindDomain';
 import * as dayjs from 'dayjs';
 import  * as cosmos from '@azure/cosmos';
 
