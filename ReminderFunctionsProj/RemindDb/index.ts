@@ -43,9 +43,10 @@ abstract class CosmosDbRepository {
 }
 
 export class SentMessageRepositoryImpl extends CosmosDbRepository implements SentMessageRepository {
-    async find(id: string, kind: Kind): Promise<SentMessage> {
+    async find(remindedAt: RemindedAt, kind: Kind): Promise<SentMessage> {
+        console.log(remindedAt.format());
         const item = await this.container
-            .item(id, kind)
+            .item(remindedAt.format(), kind)
             .read<SentMessageContainer>();
         const saved = item.resource;
 

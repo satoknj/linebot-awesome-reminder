@@ -8,7 +8,7 @@ export class RemindedAt {
     private static readonly DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ssZ[Z]';
 
     constructor(value: dayjs.Dayjs) {
-        this.value = value;
+        this.value = value.second(0).millisecond(0);
     }
     
     format(): string {
@@ -84,13 +84,12 @@ export class SentMessage {
         if (datetime instanceof RemindedAt) {
             this.remindedAt = datetime;
         } else {
-            // TODO 秒以下を扱わないこともValue Object で吸収する
-            this.remindedAt = new RemindedAt(datetime.second(0).millisecond(0));
+            this.remindedAt = new RemindedAt(datetime);
         }
     }
 }
 export interface SentMessageRepository {
-    find(id: string, kind: Kind): Promise<SentMessage>;
+    find(remindedAt: RemindedAt, kind: Kind): Promise<SentMessage>;
     create(sentMessage: SentMessage): void;
     updateReply(sentMessage: SentMessage, reply: string): void;
 }
