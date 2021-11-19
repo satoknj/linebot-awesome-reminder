@@ -36,7 +36,8 @@ async function insert() {
 }
 
 async function update(message: SentMessage) {
-    await sentMessageRepository.updateReply(message, 'done');
+    message.reply = 'done';
+    await sentMessageRepository.update(message);
 }
 
 async function main() {

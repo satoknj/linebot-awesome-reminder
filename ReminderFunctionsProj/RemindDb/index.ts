@@ -19,8 +19,9 @@ class SentMessageContainer {
         this.id = sentMessage.remindedAt.format();
         this.kind = sentMessage.kind.toString();
         this.message = sentMessage.message;
-        this.snoozes = [];
-        this.reply = '';
+        this.reply = sentMessage.reply;
+        this.snoozes = sentMessage.snoozes.map(x => x.format());
+        ;
     }
 }
 
@@ -65,9 +66,8 @@ export class SentMessageRepositoryImpl extends CosmosDbRepository implements Sen
             .create(new SentMessageContainer(sentMessage));
     }
 
-    async updateReply(sentMessage: SentMessage, reply: string) {
+    async update(sentMessage: SentMessage) {
         const item = new SentMessageContainer(sentMessage);
-        item.reply = reply;
         await this.container
             .item(item.id, item.kind)
             .replace(item);

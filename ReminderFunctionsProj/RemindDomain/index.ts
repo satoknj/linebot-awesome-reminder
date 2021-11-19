@@ -73,7 +73,7 @@ export class SentMessage {
     readonly message: string;
     readonly remindedAt: RemindedAt;
     readonly snoozes: dayjs.Dayjs[];
-    readonly reply: string;
+    reply: string;
 
     constructor(kind: Kind, message: string, datetime: dayjs.Dayjs | RemindedAt, snoozes: dayjs.Dayjs[], reply: string) {
         this.kind = kind;
@@ -91,5 +91,5 @@ export class SentMessage {
 export interface SentMessageRepository {
     find(remindedAt: RemindedAt, kind: Kind): Promise<SentMessage>;
     create(sentMessage: SentMessage): void;
-    updateReply(sentMessage: SentMessage, reply: string): void;
+    update(sentMessage: SentMessage): void;
 }

@@ -7,7 +7,7 @@ const linebot = {
 const sentMessageRepository = {
     find: jest.fn((sentMessage) => undefined),
     create: jest.fn((sentMessage) => undefined),
-    updateReply: jest.fn((sentMessage) => undefined)
+    update: jest.fn((sentMessage) => undefined)
 }
 
 beforeEach(() => {
