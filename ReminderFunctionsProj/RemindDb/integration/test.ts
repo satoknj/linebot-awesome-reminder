@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import  * as cosmos from '@azure/cosmos';
-import { Kind, RemindedAt, SentMessage } from '../../RemindDomain';
+import { Kind, RemindedAt, Reply, SentMessage } from '../../RemindDomain';
 import dayjs = require('dayjs');
 import { SentMessageRepositoryImpl } from '..';
 
@@ -30,13 +30,13 @@ const sentMessageRepository = new SentMessageRepositoryImpl(container);
 
 async function insert() {
     const item = new SentMessage(
-        Kind.BreakfirstMedicine, 'test', dayjs('2021-10-22 06:22:05.234'), [], ''
+        Kind.BreakfirstMedicine, 'test', dayjs('2021-10-22 06:22:05.234'), [], Reply.None
     )
     await sentMessageRepository.create(item);
 }
 
 async function update(message: SentMessage) {
-    message.reply = 'done';
+    message.reply = Reply.Done;
     await sentMessageRepository.update(message);
 }
 

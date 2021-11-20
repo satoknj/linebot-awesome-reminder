@@ -1,4 +1,4 @@
-import { SentMessage, SentMessageRepository, Kind, RemindedAt } from '../RemindDomain';
+import { SentMessage, SentMessageRepository, Kind, RemindedAt, Reply } from '../RemindDomain';
 import * as dayjs from 'dayjs';
 import  * as cosmos from '@azure/cosmos';
 
@@ -56,7 +56,7 @@ export class SentMessageRepositoryImpl extends CosmosDbRepository implements Sen
             saved.message,
             RemindedAt.create(saved.id),
             saved.snoozes.map(snooze => dayjs(snooze)),
-            saved.reply
+            Reply[saved.reply]
         );
     }
 

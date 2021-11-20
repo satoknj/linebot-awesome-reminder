@@ -9,6 +9,7 @@
     "start:host": "func start",
     "start": "npm-run-all --parallel start:host watch",
     "test": "TZ=Asia/Tokyo jest",
+    "test:watch": "TZ=Asia/Tokyo jest --watch",
     "integration:with:cosmos": "npx ts-node RemindDb/integration/test.ts"
   },
   "description": "",

@@ -1,4 +1,4 @@
-import { Kind, RemindMessage, RemindTiming, RemindedAt } from ".";
+import { Kind, RemindMessage, RemindTiming, RemindedAt, Reply } from ".";
 import dayjs = require("dayjs");
 
 describe('remindTiming', () => {;
@@ -38,7 +38,7 @@ describe('SentMessage', () => {
         expect(sut.message).toBe('朝の薬飲んだ？');
         expect(sut.remindedAt.value).toEqual(dayjs('2021-10-12 07:00:00.000'));
         expect(sut.snoozes).toEqual([]);
-        expect(sut.reply).toEqual('');
+        expect(sut.reply).toEqual(Reply.None);
     });
 });
 

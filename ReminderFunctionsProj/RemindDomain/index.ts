@@ -40,6 +40,9 @@ export class RemindTiming {
 
 export const Kind = { BreakfirstMedicine: 'BreakfirstMedicine', FillBath: 'FillBath' } as const;
 export type Kind = typeof Kind[keyof typeof Kind];
+export const Reply = { None: 'None', Done: 'Done', Stop: 'Stop' } as const;
+export type Reply = typeof Reply[keyof typeof Reply];
+
 export class RemindMessage {
     readonly kind: Kind;
     readonly message: string;
@@ -49,7 +52,7 @@ export class RemindMessage {
     constructor() {
         this.kind = Kind.BreakfirstMedicine;
         this.message = "朝の薬飲んだ？";
-        this.replyChoices = ["done", "later"];
+        this.replyChoices = Object.values(Reply).filter(v => v !== Reply.None);
         this.remindTiming = new RemindTiming(
             [2, 3, 4, 5, 7],
             6,
@@ -63,7 +66,7 @@ export class RemindMessage {
             this.message,
             datetime,
             [],
-            ''
+            Reply.None
         )
     }
 }
@@ -73,9 +76,9 @@ export class SentMessage {
     readonly message: string;
     readonly remindedAt: RemindedAt;
     readonly snoozes: dayjs.Dayjs[];
-    reply: string;
+    reply: Reply;
 
-    constructor(kind: Kind, message: string, datetime: dayjs.Dayjs | RemindedAt, snoozes: dayjs.Dayjs[], reply: string) {
+    constructor(kind: Kind, message: string, datetime: dayjs.Dayjs | RemindedAt, snoozes: dayjs.Dayjs[], reply: Reply) {
         this.kind = kind;
         this.message = message;
         this.snoozes = snoozes;
