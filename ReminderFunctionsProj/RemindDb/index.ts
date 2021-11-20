@@ -2,10 +2,6 @@ import { SentMessage, SentMessageRepository, Kind, RemindedAt, Reply } from '../
 import * as dayjs from 'dayjs';
 import  * as cosmos from '@azure/cosmos';
 
-export function imDb() {
-    console.log('I am DB');
-}
-
 const CONTAINER_ID = 'Sents';
 
 class SentMessageContainer {
@@ -45,7 +41,6 @@ abstract class CosmosDbRepository {
 
 export class SentMessageRepositoryImpl extends CosmosDbRepository implements SentMessageRepository {
     async find(remindedAt: RemindedAt, kind: Kind): Promise<SentMessage> {
-        console.log(remindedAt.format());
         const item = await this.container
             .item(remindedAt.format(), kind)
             .read<SentMessageContainer>();

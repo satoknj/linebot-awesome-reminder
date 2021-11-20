@@ -1,7 +1,7 @@
-import { Kind, RemindedAt } from "../RemindDomain";
+import { Kind, RemindedAt, Reply } from "../RemindDomain";
 
 export class PostBackData {
-    readonly action: string;
+    readonly action: Reply;
     readonly remindedAt: RemindedAt;
     readonly kind: Kind;
     
@@ -12,7 +12,7 @@ export class PostBackData {
             return acc;
         };
         const dataMap = data.split("&").reduce(reducer, {});
-        this.action = dataMap['action'];
+        this.action = Reply[dataMap['action']];
         this.remindedAt = RemindedAt.create(dataMap['timestamp']);
         this.kind = Kind[(dataMap['kind'])];
     }
