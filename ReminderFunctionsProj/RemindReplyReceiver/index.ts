@@ -12,7 +12,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     
       if (signature === req.headers['x-line-signature']) {
           context.log('signature ok!')
-          receivePostback(new PostBackData(req.body.data), new SentMessageRepositoryImpl());
+          context.log(req.body.events[0])
+          receivePostback(new PostBackData(req.body.events[0].data), new SentMessageRepositoryImpl());
       } else {
           context.log('signature ng...')
           context.log('signature is: ', signature)
