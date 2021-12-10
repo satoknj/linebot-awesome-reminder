@@ -25,7 +25,9 @@ abstract class CosmosDbRepository {
     protected readonly container: cosmos.Container;
     
     constructor(container?: cosmos.Container) {
-        if (container === null) {
+        if (container) {
+            this.container = container;
+        } else {
             const client = new cosmos.CosmosClient({
                 endpoint: process.env.CosmosDbEndpoint,
                 key: process.env.CosmosDbKey
@@ -33,8 +35,6 @@ abstract class CosmosDbRepository {
             
             const database = client.database(process.env.CosmosDbDatabaseId);
             this.container = database.container(CONTAINER_ID);
-        } else {
-            this.container = container;
         }
     }
 }
